@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+Spliters Expense tracker app for mobile or web both with responsive and adaptive screens
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
