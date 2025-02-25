@@ -3,10 +3,16 @@ import 'package:flutter/material.dart';
 import '../responsive/app_responsive.dart';
 
 class AuthButton extends StatelessWidget {
-  const AuthButton({super.key, required this.btnName, required this.onTap});
+  const AuthButton({
+    super.key,
+    required this.btnName,
+    required this.onTap,
+    this.loadingWidget,
+  });
 
   final String btnName;
   final VoidCallback onTap;
+  final Widget? loadingWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,9 @@ class AuthButton extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
         ),
         child: Center(
-          child: Text(btnName, style: Theme.of(context).textTheme.bodyMedium),
+          child:
+              loadingWidget ??
+              Text(btnName, style: Theme.of(context).textTheme.bodyMedium),
         ),
       ),
     );

@@ -5,6 +5,8 @@ class HomeDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: ListView(children: [])));
+    return Scaffold(body: SafeArea(child: ListView(children: [
+      Text("desktop page")
+    ])));
   }
 }

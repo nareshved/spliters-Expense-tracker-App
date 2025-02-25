@@ -80,6 +80,14 @@ mixin AuthMixins {
   }
 
   Widget authBtn(String btnName, VoidCallback onTap) {
-    return AuthButton(btnName: btnName, onTap: onTap,);
+    return AuthButton(
+      btnName: btnName,
+      onTap: onTap,
+      loadingWidget: Row(
+        spacing: 4,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text("LogIn"), CircularProgressIndicator.adaptive()],
+      ),
+    );
   }
 }

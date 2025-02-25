@@ -1,6 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spliters/data/bloc/register/register_bloc.dart';
+import 'package:spliters/data/bloc/register/register_events.dart';
+import 'package:spliters/data/bloc/register/register_states.dart';
+import 'package:spliters/repository/pages/home_view.dart';
 import 'package:spliters/repository/pages/mixins/auth_mixins.dart';
 import 'package:spliters/repository/pages/signup_page.dart';
 
@@ -10,7 +15,7 @@ class LoginPage extends StatelessWidget with AuthMixins {
   final TextEditingController uEmailController = TextEditingController();
   final TextEditingController uPassController = TextEditingController();
 
-  final _loginFormKey = GlobalKey<FormState>();
+  final loginFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class LoginPage extends StatelessWidget with AuthMixins {
       body: SafeArea(
         child: Center(
           child: Form(
-            key: _loginFormKey,
+            key: loginFormKey,
             child: Column(
               spacing: 20,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -39,21 +44,56 @@ class LoginPage extends StatelessWidget with AuthMixins {
                   passController: uPassController,
                 ),
 
-                authBtn("LogIn", () {
-                  if (_loginFormKey.currentState!.validate()) {
-                    if (uEmailController.text.isNotEmpty &&
-                        uPassController.text.isNotEmpty) {
-                      log("controller empty nahi hai");
-                    } else {
-                      log("controllers khali hai");
+                BlocConsumer<RegisterBloc, RegisterStates>(
+                  listener: (context, state) {
+                    if (state is RegisterLoadingState) {
+                      authBtn("LogIn", () {});
                     }
-                  }
-                }),
+
+                    if (state is RegisterErrorState) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(state.errorMsg)));
+                    }
+
+                    if (state is RegisterLoadedState) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePageView()),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return authBtn("LogIn", () async {
+                      if (loginFormKey.currentState!.validate()) {
+                        if (uEmailController.text.isNotEmpty &&
+                            uPassController.text.isNotEmpty) {
+                          BlocProvider.of<RegisterBloc>(context).add(
+                            LoginUserEvent(
+                              email: uEmailController.text.trim().toString(),
+                              password: uPassController.text.trim().toString(),
+                            ),
+                          );
+                        } else {
+                          log("controllers khali hai");
+                        }
+                      }
+                      uEmailController.clear();
+                      uPassController.clear();
+                    });
+                  },
+                ),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don`t have an Account"),
+                    Text(
+                      "Don`t have an Account",
+
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium!.copyWith(fontSize: 13),
+                    ),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -64,7 +104,10 @@ class LoginPage extends StatelessWidget with AuthMixins {
 
                       child: Text(
                         "Register Now",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "323748517452",
+    "project_id": "spliters-expense-app",
+    "storage_bucket": "spliters-expense-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323748517452:android:81303ad38f6dce627606e9",
+        "android_client_info": {
+          "package_name": "com.example.spliters"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCki0cGJ9-kPuSlCWDMi2j45wkOjYpBOd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

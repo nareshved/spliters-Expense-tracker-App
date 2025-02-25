@@ -25,11 +25,11 @@ class CustomeTextField extends StatelessWidget {
         border: Border.all(color: Colors.grey.shade400),
       ),
       child: TextFormField(
+        style: Theme.of(context).textTheme.bodyMedium,
         controller: loginController,
         validator: validator,
         decoration: InputDecoration(
           hintText: hintText,
-
           hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
           contentPadding: EdgeInsets.all(3),
           border: InputBorder.none,

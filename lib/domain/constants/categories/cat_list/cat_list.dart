@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CategoriesList {
-  List<Map<String, dynamic>> categories = [
+ static List<Map<String, dynamic>> categories = [
     {
       'name': 'Food',
       'color': Colors.red,
