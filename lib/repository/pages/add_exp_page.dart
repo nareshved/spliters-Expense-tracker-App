@@ -121,12 +121,10 @@ class AddExpPage extends StatelessWidget with ExpenseFields {
                           horizontal: isMobile ? 15 : 40,
                           vertical: isMobile ? 10 : 15,
                         ),
-                        child: BlocBuilder<ExpenseBloc, ExpStates>(
-                          builder: (context, state) {
+                        child: BlocConsumer<ExpenseBloc, ExpStates>(
+                          listener: (context, state) {
                             if (state is ExpenseLoadingState) {
-                              return Center(
-                                child: CircularProgressIndicator.adaptive(),
-                              );
+                              CircularProgressIndicator.adaptive();
                             }
 
                             if (state is ExpenseErrorState) {
@@ -134,7 +132,13 @@ class AddExpPage extends StatelessWidget with ExpenseFields {
                                 SnackBar(content: Text(state.errorMsg)),
                               );
                             }
-
+                            if (state is ExpenseLoadedState) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Expense Added")),
+                              );
+                            }
+                          },
+                          builder: (context, state) {
                             return AuthButton(
                               btnName: "Add Expense",
                               onTap: () async {
@@ -143,7 +147,7 @@ class AddExpPage extends StatelessWidget with ExpenseFields {
                                     descController.text.isNotEmpty) {
                                   ExpenseModel addNewExpense = ExpenseModel(
                                     expAmount: 6000,
-                                    expCatType: 200,
+                                    expCatType: 5555,
                                     expDesc: descController.text,
                                     expId: 12,
                                     expMainBalance: 3000,
@@ -152,7 +156,7 @@ class AddExpPage extends StatelessWidget with ExpenseFields {
                                             .toString(),
                                     expTitle: titleController.text,
                                     expType: 0, // 0 ya 1
-                                    userId: 1200,
+                                    userId: 542,
                                   );
 
                                   BlocProvider.of<ExpenseBloc>(context).add(
@@ -160,6 +164,14 @@ class AddExpPage extends StatelessWidget with ExpenseFields {
                                   );
 
                                   log("expense added");
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        "Empty Expenses cant be Add!!",
+                                      ),
+                                    ),
+                                  );
                                 }
                               },
                             );

@@ -61,22 +61,11 @@ class HomePageNavBar extends StatelessWidget {
                       ).textTheme.bodyLarge!.copyWith(fontSize: 35),
                     ),
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Recent Transaction"),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                              "See All",
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // categories grid view
+
+                    // Text(
+                    //   "ListView Builder add karo 7 trans replace to budget in nav bar",
+                    // ),
                   ],
                 ),
               ),

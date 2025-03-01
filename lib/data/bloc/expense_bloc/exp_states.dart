@@ -1,6 +1,5 @@
 import 'package:spliters/domain/models/exp_model/cat_model/category_model.dart';
 
-
 abstract class ExpStates {}
 
 class ExpenseInitialState extends ExpStates {}

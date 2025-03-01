@@ -47,7 +47,7 @@ class LoginPage extends StatelessWidget with AuthMixins {
                 BlocConsumer<RegisterBloc, RegisterStates>(
                   listener: (context, state) {
                     if (state is RegisterLoadingState) {
-                      authBtn("LogIn", () {});
+                      authBtn(btnName: "LogIn", onTap: () {});
                     }
 
                     if (state is RegisterErrorState) {
@@ -64,23 +64,27 @@ class LoginPage extends StatelessWidget with AuthMixins {
                     }
                   },
                   builder: (context, state) {
-                    return authBtn("LogIn", () async {
-                      if (loginFormKey.currentState!.validate()) {
-                        if (uEmailController.text.isNotEmpty &&
-                            uPassController.text.isNotEmpty) {
-                          BlocProvider.of<RegisterBloc>(context).add(
-                            LoginUserEvent(
-                              email: uEmailController.text.trim().toString(),
-                              password: uPassController.text.trim().toString(),
-                            ),
-                          );
-                        } else {
-                          log("controllers khali hai");
+                    return authBtn(
+                      btnName: "LogIn",
+                      onTap: () async {
+                        if (loginFormKey.currentState!.validate()) {
+                          if (uEmailController.text.isNotEmpty &&
+                              uPassController.text.isNotEmpty) {
+                            BlocProvider.of<RegisterBloc>(context).add(
+                              LoginUserEvent(
+                                email: uEmailController.text.trim().toString(),
+                                password:
+                                    uPassController.text.trim().toString(),
+                              ),
+                            );
+                          } else {
+                            log("controllers khali hai");
+                          }
                         }
-                      }
-                      uEmailController.clear();
-                      uPassController.clear();
-                    });
+                        uEmailController.clear();
+                        uPassController.clear();
+                      },
+                    );
                   },
                 ),
 

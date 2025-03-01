@@ -76,35 +76,39 @@ class SignupPage extends StatelessWidget with AuthMixins {
                     }
                   },
                   builder: (context, state) {
-                    return authBtn("SignUp", () async {
-                      if (signUpKey.currentState!.validate()) {
-                        if (uNameController.text.isNotEmpty &&
-                            uEmailController.text.isNotEmpty &&
-                            uPassController.text.isNotEmpty) {
-                          log("controller empty nahi hai");
+                    return authBtn(
+                      btnName: "SignUp",
+                      onTap: () async {
+                        if (signUpKey.currentState!.validate()) {
+                          if (uNameController.text.isNotEmpty &&
+                              uEmailController.text.isNotEmpty &&
+                              uPassController.text.isNotEmpty) {
+                            log("controller empty nahi hai");
 
-                          UserModel newUser = UserModel(
-                            userEmail: uEmailController.text.trim().toString(),
-                            userId: FirebaseHelper.firebaseCurrentUserUId,
-                            userName: uNameController.text.trim().toString(),
-                            userPassword:
-                                uPassController.text.trim().toString(),
-                          );
+                            UserModel newUser = UserModel(
+                              userEmail:
+                                  uEmailController.text.trim().toString(),
+                              userId: FirebaseHelper.firebaseCurrentUserUId,
+                              userName: uNameController.text.trim().toString(),
+                              userPassword:
+                                  uPassController.text.trim().toString(),
+                            );
 
-                          BlocProvider.of<RegisterBloc>(context).add(
-                            CreateUserEvent(
-                              newUser: newUser,
-                              password: newUser.userPassword,
-                            ),
-                          );
+                            BlocProvider.of<RegisterBloc>(context).add(
+                              CreateUserEvent(
+                                newUser: newUser,
+                                password: newUser.userPassword,
+                              ),
+                            );
 
-                          log("data save to model");
-                        } else {}
-                      }
-                      uNameController.clear();
-                      uEmailController.clear();
-                      uPassController.clear();
-                    });
+                            log("data save to model");
+                          } else {}
+                        }
+                        uNameController.clear();
+                        uEmailController.clear();
+                        uPassController.clear();
+                      },
+                    );
                   },
                 ),
 

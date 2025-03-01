@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spliters/repository/pages/nav_bar_pages/budget.dart';
+import 'package:spliters/repository/pages/nav_bar_pages/history.dart';
 import 'package:spliters/repository/pages/nav_bar_pages/home.dart';
 import 'package:spliters/repository/pages/nav_bar_pages/profile.dart';
 import 'package:spliters/repository/pages/nav_bar_pages/transactions.dart';
@@ -17,7 +17,7 @@ class _NavBarHomePageState extends State<NavBarHomePage> {
   List<Widget> navPagesList = [
     HomePageNavBar(),
     TransactionsPage(),
-    BudgetPage(),
+    HistoryPage(),
     ProfilePage(),
   ];
 
@@ -38,7 +38,7 @@ class _NavBarHomePageState extends State<NavBarHomePage> {
             icon: Icon(Icons.swap_horiz_rounded),
             label: "Transactions",
           ),
-          NavigationDestination(icon: Icon(Icons.pie_chart), label: "Budget"),
+          NavigationDestination(icon: Icon(Icons.history), label: "History"),
           NavigationDestination(icon: Icon(Icons.person_2), label: "Profile"),
         ],
       ),

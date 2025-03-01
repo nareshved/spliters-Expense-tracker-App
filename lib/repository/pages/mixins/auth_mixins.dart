@@ -82,7 +82,7 @@ mixin AuthMixins {
     );
   }
 
-  Widget authBtn(String btnName, VoidCallback onTap) {
+  Widget authBtn({required String btnName, required VoidCallback onTap}) {
     return AuthButton(
       btnName: btnName,
       onTap: onTap,
@@ -107,7 +107,6 @@ mixin ExpenseFields {
       expController: mController,
       keyboardType: keyboardType,
       hintTxt: hintTextStr,
-     
     );
   }
 }
