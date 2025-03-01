@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spliters/domain/models/exp_model/exp_model.dart';
 import '../../../domain/models/user_model/user_model.dart';
 
 class FirebaseHelper {
@@ -16,8 +17,11 @@ class FirebaseHelper {
 
   // firebase collections
 
-  static final String collectionUser = "usersTable";
+  static final String collectionUser = "users";
   static final String collectionExp = "expTable";
+
+  // new collection user ke under collection table
+  static final String collectionExpUser = "expenses";
 
   // login prefs key
   static final String loginPrefsKey = "isLogin";
@@ -97,5 +101,82 @@ class FirebaseHelper {
       log("login error in firebase ${e.toString()}");
       throw Exception(e);
     }
+  }
+
+  Future addNewExpense({required ExpenseModel addNewExpense}) async {
+    try {
+      return await firebaseFirestore
+          .collection(collectionExp)
+          .doc(firebaseCurrentUserUId)
+          .collection(collectionExpUser)
+          .add(addNewExpense.toMap());
+    } catch (e) {
+      log(e.toString());
+
+      throw Exception(e);
+    }
+  }
+
+  Future<List<ExpenseModel>> fetchAllExpense() async {
+    try {
+      var data = await firebaseFirestore.collection(collectionExp).get();
+      List<ExpenseModel> listExp = [];
+
+      data.docs.map((e) {
+        var eachExp = ExpenseModel.fromJson(e.data());
+        listExp.add(eachExp);
+      }).toList();
+
+      return listExp;
+    } catch (e) {
+      log(e.toString());
+      throw Exception(e);
+    }
+  }
+
+  Future updateExpense({
+    required ExpenseModel updateExpense,
+    required String updateNoteDocId,
+  }) async {
+    try {
+      await firebaseFirestore
+          .collection(collectionExp)
+          .doc(firebaseCurrentUserUId)
+          .collection(collectionExpUser)
+          .doc(updateNoteDocId)
+          .update(updateExpense.toMap());
+    } catch (e) {
+      log(e.toString());
+      throw Exception(e);
+    }
+  }
+
+  Future<void> deleteExpense({required String deleteExpDocId}) async {
+    try {
+      await firebaseFirestore
+          .collection(collectionExp)
+          .doc(firebaseCurrentUserUId)
+          .collection(collectionExpUser)
+          .doc(deleteExpDocId)
+          .delete();
+    } catch (e) {
+      log(e.toString());
+      throw Exception(e);
+    }
+  }
+
+  // get categories
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getAllCategories() async {
+    QuerySnapshot<Map<String, dynamic>> categories;
+    try {
+      categories = await firebaseFirestore.collection("Categories").get();
+    } catch (e) {
+      log(e.toString());
+
+      throw Exception(e);
+    }
+
+    return categories;
   }
 }

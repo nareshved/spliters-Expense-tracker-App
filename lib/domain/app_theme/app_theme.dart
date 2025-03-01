@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:spliters/domain/constants/app_colors.dart';
 
 final isLightTheme = ThemeData(
+  fontFamily: "outfit",
   useMaterial3: true,
   colorScheme: ColorScheme.light(
     brightness: Brightness.light,
     primary: AppColors.lightPrimaryColor,
     onPrimary: Colors.black,
     surface: AppColors.lightBgColor,
+    primaryContainer: AppColors.lightPrimaryContainerColor,
   ),
   textTheme: TextTheme(
     bodyLarge: TextStyle(
@@ -26,8 +28,14 @@ final isLightTheme = ThemeData(
       fontSize: 11,
     ),
   ),
+
+  // appBarTheme: AppBarTheme(
+  //   backgroundColor: AppColors.addExpDebitColor,
+  //   foregroundColor: Colors.white,
+  // ),
 );
 final isDarkTheme = ThemeData(
+  fontFamily: "outfit",
   useMaterial3: true,
   colorScheme: ColorScheme.light(
     brightness: Brightness.dark,
@@ -53,4 +61,9 @@ final isDarkTheme = ThemeData(
       fontSize: 11,
     ),
   ),
+
+  // appBarTheme: AppBarTheme(
+  //   backgroundColor: AppColors.addExpDebitColor,
+  //   foregroundColor: Colors.white,
+  // ),
 );

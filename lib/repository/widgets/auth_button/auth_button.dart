@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../responsive/app_responsive.dart';
 
 class AuthButton extends StatelessWidget {

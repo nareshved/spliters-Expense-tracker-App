@@ -1,14 +1,15 @@
 import 'package:spliters/data/firebase/auth/firebase_helper.dart';
 
-class Expensemodel {
+class ExpenseModel {
   int userId;
   int expId;
   String expTitle, expDesc, expTimeStamp;
-  num expAmount, expMainBalance;
+  int expAmount;
+  num expMainBalance;
   int expType;
   int expCatType;
 
-  Expensemodel({
+  ExpenseModel({
     required this.expAmount,
     required this.expCatType,
     required this.expDesc,
@@ -20,8 +21,8 @@ class Expensemodel {
     required this.userId,
   });
 
-  factory Expensemodel.fromJson(Map<String, dynamic> map) {
-    return Expensemodel(
+  factory ExpenseModel.fromJson(Map<String, dynamic> map) {
+    return ExpenseModel(
       expAmount: map[FirebaseHelper.columnExpAmount],
       expCatType: map[FirebaseHelper.columnExpCatType],
       expDesc: map[FirebaseHelper.columnExpDesc],
@@ -32,5 +33,21 @@ class Expensemodel {
       expType: map[FirebaseHelper.columnExpType],
       userId: map[FirebaseHelper.columnUserId],
     );
+  }
+
+  // toMap for firebase
+
+  Map<String, dynamic> toMap() {
+    return {
+      FirebaseHelper.columnExpAmount: expAmount,
+      FirebaseHelper.columnExpCatType: expCatType,
+      FirebaseHelper.columnExpDesc: expDesc,
+      FirebaseHelper.columnExpId: expId,
+      FirebaseHelper.columnExpMainBalance: expMainBalance,
+      FirebaseHelper.columnExpTimeStamp: expTimeStamp,
+      FirebaseHelper.columnExpTitle: expTitle,
+      FirebaseHelper.columnExpType: expType,
+      FirebaseHelper.columnUserId: userId,
+    };
   }
 }
