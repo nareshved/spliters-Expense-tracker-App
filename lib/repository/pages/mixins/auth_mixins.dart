@@ -89,7 +89,7 @@ mixin AuthMixins {
       loadingWidget: Row(
         spacing: 4,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text("LogIn"), CircularProgressIndicator.adaptive()],
+        children: [Text(btnName), CircularProgressIndicator.adaptive()],
       ),
     );
   }

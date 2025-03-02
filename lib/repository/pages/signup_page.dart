@@ -52,14 +52,7 @@ class SignupPage extends StatelessWidget with AuthMixins {
                 BlocConsumer<RegisterBloc, RegisterStates>(
                   listener: (context, state) {
                     if (state is RegisterLoadingState) {
-                      Row(
-                        spacing: 4,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("SignUp"),
-                          CircularProgressIndicator.adaptive(),
-                        ],
-                      );
+                      CircularProgressIndicator.adaptive();
                     }
 
                     if (state is RegisterErrorState) {
@@ -83,9 +76,7 @@ class SignupPage extends StatelessWidget with AuthMixins {
                           if (uNameController.text.isNotEmpty &&
                               uEmailController.text.isNotEmpty &&
                               uPassController.text.isNotEmpty) {
-                            log("controller empty nahi hai");
-
-                            UserModel newUser = UserModel(
+                            UserModel newUserRegister = UserModel(
                               userEmail:
                                   uEmailController.text.trim().toString(),
                               userId: FirebaseHelper.firebaseCurrentUserUId,
@@ -96,13 +87,13 @@ class SignupPage extends StatelessWidget with AuthMixins {
 
                             BlocProvider.of<RegisterBloc>(context).add(
                               CreateUserEvent(
-                                newUser: newUser,
-                                password: newUser.userPassword,
+                                newUser: newUserRegister,
+                                password: newUserRegister.userPassword,
                               ),
                             );
 
                             log("data save to model");
-                          } else {}
+                          }
                         }
                         uNameController.clear();
                         uEmailController.clear();
