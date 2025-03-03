@@ -89,7 +89,7 @@ class AddExpPage extends StatelessWidget with ExpenseFields {
                     topLeft: Radius.circular(25),
                     topRight: Radius.circular(25),
                   ),
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15),

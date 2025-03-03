@@ -5,7 +5,8 @@ class AppColors {
   static const Color lightPrimaryColor = Colors.amber;
   // static const Color lightPrimaryColor = Color(0xffff9900);
   static const Color lightBgColor = Colors.white;
-  static const Color lightPrimaryContainerColor = Colors.white;
+  static const Color lightPrimaryContainerColor = Color(0xFFEFF2F3);
+  // static const Color lightPrimaryContainerColor = Colors.white;
 
   // dark colors
   static const Color darkPrimaryColor = Colors.amber;

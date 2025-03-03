@@ -37,7 +37,7 @@ final isLightTheme = ThemeData(
 final isDarkTheme = ThemeData(
   fontFamily: "outfit",
   useMaterial3: true,
-  colorScheme: ColorScheme.light(
+  colorScheme: ColorScheme.dark(
     brightness: Brightness.dark,
     primary: AppColors.darkPrimaryColor,
     surface: AppColors.darkSurfaceColor,

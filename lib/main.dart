@@ -34,8 +34,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      themeAnimationCurve: Curves.easeIn,
+      themeAnimationDuration: Durations.short3,
       theme: isLightTheme,
       darkTheme: isDarkTheme,
+      // themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       home: SplashPage(),
     );

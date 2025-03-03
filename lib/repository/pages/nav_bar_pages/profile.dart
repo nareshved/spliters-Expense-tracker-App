@@ -8,21 +8,24 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 239, 242, 243),
+      //   backgroundColor: const Color.fromARGB(255, 239, 242, 243),
       body: SafeArea(
         child: Column(
           children: [
-            ListTile(
-              leading: Icon(Icons.account_circle, size: 40),
-              title: Text(
-                "user name",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              subtitle: Text("Naresh Kumar"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                leading: Icon(Icons.account_circle, size: 40),
+                title: Text(
+                  "user name",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                subtitle: Text("Naresh Kumar"),
 
-              // subtitle: Text(
-              //   FirebaseHelper.firebaseAuth.currentUser!.displayName!,
-              // ),
+                // subtitle: Text(
+                //   FirebaseHelper.firebaseAuth.currentUser!.displayName!,
+                // ),
+              ),
             ),
 
             Flexible(

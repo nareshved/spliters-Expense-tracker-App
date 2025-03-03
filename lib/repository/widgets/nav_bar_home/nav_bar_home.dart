@@ -27,6 +27,7 @@ class _NavBarHomePageState extends State<NavBarHomePage> {
       body: navPagesList[mSelectedIndex],
       bottomNavigationBar: NavigationBar(
         indicatorColor: Theme.of(context).colorScheme.primary,
+        animationDuration: Duration(seconds: 2),
         selectedIndex: mSelectedIndex,
         onDestinationSelected: (index) {
           mSelectedIndex = index;
