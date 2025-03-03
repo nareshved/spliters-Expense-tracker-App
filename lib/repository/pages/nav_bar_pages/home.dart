@@ -4,6 +4,8 @@ import 'package:spliters/domain/models/exp_model/cat_model/category_model.dart';
 import 'package:spliters/repository/pages/add_exp_page.dart';
 import 'package:spliters/repository/widgets/responsive/app_responsive.dart';
 
+import '../../../domain/constants/categories/dummy_firebase/send_cat.dart';
+
 class HomePageNavBar extends StatelessWidget {
   const HomePageNavBar({super.key});
 

@@ -8,6 +8,7 @@ import 'package:spliters/data/bloc/expense_bloc/expense_bloc.dart';
 import 'package:spliters/domain/constants/app_colors.dart';
 import 'package:spliters/domain/models/exp_model/exp_model.dart';
 import 'package:spliters/repository/pages/mixins/auth_mixins.dart';
+import 'package:spliters/repository/pages/nav_bar_pages/transactions.dart';
 import 'package:spliters/repository/widgets/add_exp_drop_down/exp_drop_down.dart';
 import 'package:spliters/repository/widgets/auth_button/auth_button.dart';
 import 'package:spliters/repository/widgets/responsive/app_responsive.dart';
@@ -162,8 +163,14 @@ class AddExpPage extends StatelessWidget with ExpenseFields {
                                   BlocProvider.of<ExpenseBloc>(context).add(
                                     AddExpenseEvent(newExpense: addNewExpense),
                                   );
-
                                   log("expense added");
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => TransactionsPage(),
+                                    ),
+                                  );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(

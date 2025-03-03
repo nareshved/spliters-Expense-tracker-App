@@ -24,8 +24,15 @@ class FirebaseHelper {
   // new collection user ke under collection table
   static final String collectionExpUser = "expenses";
 
+  // new collection in userTable all expense
+  static final String allCollectionExpUser = "all expenses";
+
   // login prefs key
   static final String loginPrefsKey = "isLogin";
+
+  // collection categories for get all categories
+
+  static final String collectionCategory = "categories";
 
   // users columns
 
@@ -112,11 +119,32 @@ class FirebaseHelper {
 
   Future addNewExpense({required ExpenseModel addNewExpense}) async {
     try {
-      return await firebaseFirestore
+      // await firebaseFirestore
+      //     .collection(collectionExp)
+      //     .doc(firebaseCurrentUserUId)
+      //     .collection(collectionExpUser)
+      //     .add(addNewExpense.toMap());
+
+      await firebaseFirestore
           .collection(collectionExp)
           .doc(firebaseCurrentUserUId)
           .collection(collectionExpUser)
+          .doc(firebaseAuth.currentUser!.email)
+          .collection(allCollectionExpUser)
           .add(addNewExpense.toMap());
+
+      // await  firebaseFirestore
+      //   .collection(collectionUser)
+      //   .doc(userCredential.user!.uid)
+      //   .set(userModel.toMap())
+      //   .then((value) {
+      //     log(userCredential.user!.uid);
+      //     // firebaseUserUId = userCredential.user!.uid;
+      //   })
+      //   .onError((error, stackTrace) {
+      //     log("Error: $error");
+      //     throw Exception("Error: $error");
+      //   });
     } catch (e) {
       log(e.toString());
 
@@ -146,10 +174,19 @@ class FirebaseHelper {
     required String updateNoteDocId,
   }) async {
     try {
+      // await firebaseFirestore
+      //     .collection(collectionExp)
+      //     .doc(firebaseCurrentUserUId)
+      //     .collection(collectionExpUser)
+      //     .doc(updateNoteDocId)
+      //     .update(updateExpense.toMap());
+
       await firebaseFirestore
           .collection(collectionExp)
           .doc(firebaseCurrentUserUId)
           .collection(collectionExpUser)
+          .doc(firebaseAuth.currentUser!.email)
+          .collection(allCollectionExpUser)
           .doc(updateNoteDocId)
           .update(updateExpense.toMap());
     } catch (e) {
@@ -160,10 +197,18 @@ class FirebaseHelper {
 
   Future<void> deleteExpense({required String deleteExpDocId}) async {
     try {
+      // await firebaseFirestore
+      //     .collection(collectionExp)
+      //     .doc(firebaseCurrentUserUId)
+      //     .collection(collectionExpUser)
+      //     .doc(deleteExpDocId)
+      //     .delete();
       await firebaseFirestore
           .collection(collectionExp)
           .doc(firebaseCurrentUserUId)
           .collection(collectionExpUser)
+          .doc(firebaseAuth.currentUser!.email)
+          .collection(allCollectionExpUser)
           .doc(deleteExpDocId)
           .delete();
     } catch (e) {
@@ -177,7 +222,7 @@ class FirebaseHelper {
   Future<QuerySnapshot<Map<String, dynamic>>> getAllCategories() async {
     QuerySnapshot<Map<String, dynamic>> categories;
     try {
-      categories = await firebaseFirestore.collection("Categories").get();
+      categories = await firebaseFirestore.collection(collectionCategory).get();
     } catch (e) {
       log(e.toString());
 
