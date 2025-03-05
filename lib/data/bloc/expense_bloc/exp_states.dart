@@ -1,4 +1,6 @@
-import 'package:spliters/domain/models/exp_model/cat_model/category_model.dart';
+import 'package:spliters/domain/constants/categories/dummy_firebase/send_cat.dart';
+
+import '../../../domain/models/exp_model/exp_model.dart';
 
 abstract class ExpStates {}
 
@@ -7,8 +9,8 @@ class ExpenseInitialState extends ExpStates {}
 class ExpenseLoadingState extends ExpStates {}
 
 class ExpenseLoadedState extends ExpStates {
-  // List<ExpenseModel> mData;
-  ExpenseLoadedState();
+ List<ExpenseModel> mData;
+  ExpenseLoadedState({required this.mData});
 }
 
 class ExpenseErrorState extends ExpStates {
@@ -19,7 +21,8 @@ class ExpenseErrorState extends ExpStates {
 // get categories
 
 class GetAllCategoriesLoadedState extends ExpStates {
-  List<CategoryModel> allCategories;
+  // List<CategoryModel> allCategories;
+  List<CategoryDummyModel> allCategories;
 
   GetAllCategoriesLoadedState({required this.allCategories});
 }

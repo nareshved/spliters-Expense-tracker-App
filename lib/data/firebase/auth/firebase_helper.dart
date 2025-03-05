@@ -223,6 +223,8 @@ class FirebaseHelper {
     QuerySnapshot<Map<String, dynamic>> categories;
     try {
       categories = await firebaseFirestore.collection(collectionCategory).get();
+
+      log(categories.toString());
     } catch (e) {
       log(e.toString());
 

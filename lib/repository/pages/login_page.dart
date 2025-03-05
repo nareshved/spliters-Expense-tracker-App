@@ -47,7 +47,17 @@ class LoginPage extends StatelessWidget with AuthMixins {
                 BlocConsumer<RegisterBloc, RegisterStates>(
                   listener: (context, state) {
                     if (state is RegisterLoadingState) {
-                      authBtn(btnName: "LogIn", onTap: () {});
+                      authBtn(
+                        btnName: "LogIn",
+                        onTap: () {},
+                        authCircle: SizedBox(
+                          width: 12,
+                          height: 12,
+                          child: CircularProgressIndicator.adaptive(
+                            backgroundColor: Colors.black45,
+                          ),
+                        ),
+                      );
                     }
 
                     if (state is RegisterErrorState) {
@@ -79,7 +89,7 @@ class LoginPage extends StatelessWidget with AuthMixins {
                             );
                           } else {
                             log("controllers khali hai");
-                          } 
+                          }
                         }
                         uEmailController.clear();
                         uPassController.clear();

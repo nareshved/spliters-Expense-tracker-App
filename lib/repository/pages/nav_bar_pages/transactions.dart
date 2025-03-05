@@ -5,6 +5,11 @@ class TransactionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text("Traalactinns Page")));
+    return Scaffold(body: SafeArea(child: ListView(
+
+      children: [
+        
+      ],
+    )));
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spliters/domain/models/exp_model/cat_model/category_model.dart';
+import 'package:spliters/domain/models/cat_model/category_model.dart';
 
 class CategoriesModelList {
   static final List<CategoryModel> mCategories = [

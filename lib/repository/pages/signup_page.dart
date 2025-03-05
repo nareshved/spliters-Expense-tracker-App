@@ -52,7 +52,17 @@ class SignupPage extends StatelessWidget with AuthMixins {
                 BlocConsumer<RegisterBloc, RegisterStates>(
                   listener: (context, state) {
                     if (state is RegisterLoadingState) {
-                      CircularProgressIndicator.adaptive();
+                      authBtn(
+                        btnName: "SignUp",
+                        onTap: () {},
+                        authCircle: SizedBox(
+                          width: 12,
+                          height: 12,
+                          child: CircularProgressIndicator.adaptive(
+                            backgroundColor: Colors.black45,
+                          ),
+                        ),
+                      );
                     }
 
                     if (state is RegisterErrorState) {

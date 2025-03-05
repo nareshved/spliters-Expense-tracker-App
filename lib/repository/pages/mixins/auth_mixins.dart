@@ -82,15 +82,15 @@ mixin AuthMixins {
     );
   }
 
-  Widget authBtn({required String btnName, required VoidCallback onTap}) {
+  Widget authBtn({
+    required String btnName,
+    required VoidCallback onTap,
+    Widget? authCircle,
+  }) {
     return AuthButton(
       btnName: btnName,
       onTap: onTap,
-      loadingWidget: Row(
-        spacing: 4,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text(btnName), CircularProgressIndicator.adaptive()],
-      ),
+      loadingWidget: authCircle,
     );
   }
 }

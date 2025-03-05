@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spliters/data/bloc/expense_bloc/exp_events.dart';
 import 'package:spliters/data/bloc/expense_bloc/exp_states.dart';
 import 'package:spliters/data/firebase/auth/firebase_helper.dart';
-import 'package:spliters/domain/models/exp_model/cat_model/category_model.dart';
+import 'package:spliters/domain/constants/categories/dummy_firebase/send_cat.dart';
+
+import '../../../domain/models/exp_model/exp_model.dart';
 
 class ExpenseBloc extends Bloc<ExpEvents, ExpStates> {
   FirebaseHelper firebaseHelper;
@@ -14,7 +16,10 @@ class ExpenseBloc extends Bloc<ExpEvents, ExpStates> {
       try {
         await firebaseHelper.addNewExpense(addNewExpense: event.newExpense);
 
-        emit(ExpenseLoadedState());
+        // emit(ExpenseLoadedState(mData: fetchExp));
+
+        List<ExpenseModel> fetchExp = await firebaseHelper.fetchAllExpense();
+        emit(ExpenseLoadedState(mData: fetchExp));
 
         log("all exp fetch and run loaded state success");
       } catch (e) {
@@ -71,12 +76,12 @@ class ExpenseBloc extends Bloc<ExpEvents, ExpStates> {
       emit(ExpenseLoadingState());
 
       try {
-        var allCategories = await firebaseHelper.getAllCategories();
+        var mCats = await firebaseHelper.getAllCategories();
 
-        List<CategoryModel> eachCat =
-            allCategories.docs
-                .map((e) => CategoryModel.fromJson(e.data()))
-                .toList();
+        List<CategoryDummyModel> eachCat =
+            mCats.docs.map((e) {
+              return CategoryDummyModel.fromJson(e.data());
+            }).toList();
 
         emit(GetAllCategoriesLoadedState(allCategories: eachCat));
       } catch (e) {
@@ -84,6 +89,24 @@ class ExpenseBloc extends Bloc<ExpEvents, ExpStates> {
         emit(ExpenseErrorState(errorMsg: e.toString()));
       }
     });
+
+    // on<GetAllCategoriesEvent>((event, emit) async {
+    //   emit(ExpenseLoadingState());
+
+    //   try {
+    //     var allCategories = await firebaseHelper.getAllCategories();
+
+    //     List<CategoryModel> eachCat =
+    //         allCategories.docs
+    //             .map((e) => CategoryModel.fromJson(e.data()))
+    //             .toList();
+
+    //     emit(GetAllCategoriesLoadedState(allCategories: eachCat));
+    //   } catch (e) {
+    //     log(e.toString());
+    //     emit(ExpenseErrorState(errorMsg: e.toString()));
+    //   }
+    // });
   }
 }
 

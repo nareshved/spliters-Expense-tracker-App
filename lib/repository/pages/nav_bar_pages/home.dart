@@ -1,44 +1,101 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:spliters/domain/constants/categories/cat_model_list/cat_model_list.dart';
-import 'package:spliters/domain/models/exp_model/cat_model/category_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spliters/data/bloc/expense_bloc/exp_events.dart';
+import 'package:spliters/data/bloc/expense_bloc/exp_states.dart';
+import 'package:spliters/data/bloc/expense_bloc/expense_bloc.dart';
+import 'package:spliters/domain/constants/categories/dummy_firebase/send_cat.dart';
 import 'package:spliters/repository/pages/add_exp_page.dart';
 import 'package:spliters/repository/widgets/responsive/app_responsive.dart';
 
-import '../../../domain/constants/categories/dummy_firebase/send_cat.dart';
-
-class HomePageNavBar extends StatelessWidget {
+class HomePageNavBar extends StatefulWidget {
   const HomePageNavBar({super.key});
+
+  @override
+  State<HomePageNavBar> createState() => _HomePageNavBarState();
+}
+
+class _HomePageNavBarState extends State<HomePageNavBar> {
+  @override
+  void initState() {
+    super.initState();
+
+    BlocProvider.of<ExpenseBloc>(context).add(GetAllCategoriesEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
     //  final isMobile = ResponsiveApp.isMobile(context);
     final isPage = ResponsiveApp.isScreenSize(context);
+
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        onPressed: () {
-          List<CategoryModel> getAllCategories =
-              CategoriesModelList.mCategories;
-
-          List<String> allCategoriesStr = [];
-
-          for (CategoryModel catModel in getAllCategories) {
-            allCategoriesStr.add(catModel.catTitle);
+      floatingActionButton: BlocBuilder<ExpenseBloc, ExpStates>(
+        builder: (context, state) {
+          if (state is ExpenseLoadingState) {
+            BlocProvider.of<ExpenseBloc>(context).add(GetAllCategoriesEvent());
           }
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder:
-                  (context) => AddExpPage(
-                    catType: allCategoriesStr[0],
-                    catTypeList: allCategoriesStr,
+          if (state is ExpenseErrorState) {
+            log("error : Categories not get by me ${state.errorMsg}");
+          }
+
+          if (state is GetAllCategoriesLoadedState) {
+            List<String> allCategoriesStr = [];
+
+            for (CategoryDummyModel catModel in state.allCategories) {
+              allCategoriesStr.add(catModel.catTitle);
+
+              // log("state data list ${allCategoriesStr.length}");
+            }
+
+            return FloatingActionButton(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder:
+                        (context) => AddExpPage(
+                          catType: allCategoriesStr[0],
+                          catTypeList: allCategoriesStr,
+                        ),
                   ),
-            ),
-          );
+                );
+              },
+              child: Icon(Icons.add),
+            );
+          }
+
+          // log("categories floationg action btn not working");
+          return Container();
         },
-        child: Icon(Icons.add),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Theme.of(context).colorScheme.primary,
+      //   onPressed: () {
+      //     List<CategoryModel> getAllCategories =
+      //         CategoriesModelList.mCategories;
+
+      //     List<String> allCategoriesStr = [];
+
+      //     for (CategoryModel catModel in getAllCategories) {
+      //       allCategoriesStr.add(catModel.catTitle);
+      //     }
+
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder:
+      //             (context) => AddExpPage(
+      //               catType: allCategoriesStr[0],
+      //               catTypeList: allCategoriesStr,
+      //             ),
+      //       ),
+      //     );
+      //   },
+      //   child: Icon(Icons.add),
+      // ),
       body: SafeArea(
         child: Column(
           children: [
