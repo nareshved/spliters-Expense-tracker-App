@@ -154,12 +154,22 @@ class FirebaseHelper {
 
   Future<List<ExpenseModel>> fetchAllExpense() async {
     try {
-      var data = await firebaseFirestore.collection(collectionExp).get();
+      var data =
+          await firebaseFirestore
+              .collection(collectionExp)
+              .doc(firebaseCurrentUserUId)
+              .collection(collectionExpUser)
+              .doc(firebaseAuth.currentUser!.email)
+              .collection(allCollectionExpUser)
+              .get();
+
       List<ExpenseModel> listExp = [];
 
       data.docs.map((e) {
         var eachExp = ExpenseModel.fromJson(e.data());
         listExp.add(eachExp);
+
+        // log(e.data().toString());
       }).toList();
 
       return listExp;
@@ -223,8 +233,6 @@ class FirebaseHelper {
     QuerySnapshot<Map<String, dynamic>> categories;
     try {
       categories = await firebaseFirestore.collection(collectionCategory).get();
-
-      log(categories.toString());
     } catch (e) {
       log(e.toString());
 
@@ -234,6 +242,9 @@ class FirebaseHelper {
     return categories;
   }
 }
+
+
+
 
 // import 'dart:developer';
 // import 'package:cloud_firestore/cloud_firestore.dart';

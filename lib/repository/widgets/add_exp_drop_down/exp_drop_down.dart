@@ -114,7 +114,8 @@ class ExpDropDownWidgetState extends State<ExpDropDownWidget> {
   // String selectedTransType = "Debit";
 
   // get debit for bg color in add expense page
-  String? getTransType;
+  // String? getTransType;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -147,8 +148,10 @@ class ExpDropDownWidgetState extends State<ExpDropDownWidget> {
                 }).toList(),
             onChanged: (value) {
               widget.selectedTypes = value!;
-              getTransType = value;
-              setState(() {});
+
+              setState(() {
+                
+              });
             },
           ),
         ),

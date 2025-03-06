@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
 import 'package:spliters/domain/models/exp_model/exp_model.dart';
-
 import '../../date_wise_model/date_wise_exp.dart';
 
 void filterDayWiseExpenses({required List<ExpenseModel> allExpenses}) {

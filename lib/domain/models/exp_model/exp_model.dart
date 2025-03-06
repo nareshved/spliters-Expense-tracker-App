@@ -1,7 +1,8 @@
 import 'package:spliters/data/firebase/auth/firebase_helper.dart';
 
-class ExpenseModel {
-  int userId;
+class ExpenseModel { 
+  String userId;        // int for sqlite database or string for firebase
+  // int userId;  // chenged int to string for firebase
   int expId;
   String expTitle, expDesc, expTimeStamp;
   int expAmount;

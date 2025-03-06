@@ -1,9 +1,10 @@
-import 'dart:developer';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spliters/data/bloc/expense_bloc/exp_events.dart';
 import 'package:spliters/data/bloc/expense_bloc/exp_states.dart';
 import 'package:spliters/data/bloc/expense_bloc/expense_bloc.dart';
+import 'package:spliters/data/firebase/auth/firebase_helper.dart';
 import 'package:spliters/domain/constants/app_colors.dart';
 import 'package:spliters/domain/models/exp_model/exp_model.dart';
 import 'package:spliters/repository/pages/mixins/auth_mixins.dart';
@@ -35,6 +36,7 @@ class AddExpPage extends StatelessWidget with ExpenseFields {
     final isMobile = ResponsiveApp.isMobile(context);
     return Scaffold(
       backgroundColor: AppColors.addExpDebitColor,
+
       appBar: AppBar(
         foregroundColor: Colors.white,
         backgroundColor: AppColors.addExpDebitColor,
@@ -145,24 +147,41 @@ class AddExpPage extends StatelessWidget with ExpenseFields {
                                 if (amountController.text.isNotEmpty &&
                                     titleController.text.isNotEmpty &&
                                     descController.text.isNotEmpty) {
+                                  // make for generate unique Id for expId firebase
+
+                                  int uuidExpId = Random().nextInt(50000);
+
+                                  // List<int> newExpId = [];
+
+                                  // for (int a = 1; a < uuidExp; a++) {
+                                  //   if (!newExpId.contains(uuidExp)) {
+                                  //     newExpId.add(uuidExp);
+                                  //   }
+                                  // }
+
                                   ExpenseModel addNewExpense = ExpenseModel(
-                                    expAmount: 6000,
+                                    expAmount: int.parse(amountController.text),
                                     expCatType: 5555,
                                     expDesc: descController.text,
-                                    expId: 12,
+                                    expId: uuidExpId,
                                     expMainBalance: 3000,
                                     expTimeStamp:
                                         DateTime.now().millisecondsSinceEpoch
                                             .toString(),
                                     expTitle: titleController.text,
                                     expType: 0, // 0 ya 1
-                                    userId: 542,
+                                    userId:
+                                        FirebaseHelper.firebaseCurrentUserUId,
                                   );
 
                                   BlocProvider.of<ExpenseBloc>(context).add(
                                     AddExpenseEvent(newExpense: addNewExpense),
                                   );
-                                  log("expense added");
+
+                                  titleController.clear();
+                                  descController.clear();
+                                  amountController.clear();
+                                  print("expense added");
 
                                   Navigator.push(
                                     context,
@@ -174,7 +193,7 @@ class AddExpPage extends StatelessWidget with ExpenseFields {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        "Empty Expenses cant be Add!!",
+                                        "Expenses fields are empty!",
                                       ),
                                     ),
                                   );

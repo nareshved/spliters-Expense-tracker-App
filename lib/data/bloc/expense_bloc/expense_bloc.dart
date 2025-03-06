@@ -4,7 +4,6 @@ import 'package:spliters/data/bloc/expense_bloc/exp_events.dart';
 import 'package:spliters/data/bloc/expense_bloc/exp_states.dart';
 import 'package:spliters/data/firebase/auth/firebase_helper.dart';
 import 'package:spliters/domain/constants/categories/dummy_firebase/send_cat.dart';
-
 import '../../../domain/models/exp_model/exp_model.dart';
 
 class ExpenseBloc extends Bloc<ExpEvents, ExpStates> {
@@ -27,17 +26,17 @@ class ExpenseBloc extends Bloc<ExpEvents, ExpStates> {
       }
     });
 
-    // on<FetchAllExpenseEvent>((event, emit) async {
-    //   emit(ExpenseLoadingState());
+    on<FetchAllExpenseEvent>((event, emit) async {
+      emit(ExpenseLoadingState());
 
-    //   try {
-    //    await firebaseHelper.fetchAllExpense();
-    //     emit(ExpenseLoadedState());
-    //   } catch (e) {
-    //     log(e.toString());
-    //     emit(ExpenseErrorState(errorMsg: e.toString()));
-    //   }
-    // });
+      try {
+        List<ExpenseModel> fetchExpgg = await firebaseHelper.fetchAllExpense();
+        emit(ExpenseLoadedState(mData: fetchExpgg));
+      } catch (e) {
+        log(e.toString());
+        emit(ExpenseErrorState(errorMsg: e.toString()));
+      }
+    });
 
     // on<UpdateExpenseEvent>((event, emit) async {
     //   emit(ExpenseLoadingState());

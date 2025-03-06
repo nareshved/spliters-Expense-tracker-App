@@ -15,12 +15,12 @@ final isLightTheme = ThemeData(
     bodyLarge: TextStyle(
       fontFamily: "outfit",
       fontWeight: FontWeight.normal,
-      fontSize: 22,
+      fontSize: 15,
     ),
     bodyMedium: TextStyle(
       fontFamily: "outfit",
       fontWeight: FontWeight.w400,
-      fontSize: 17,
+      fontSize: 13,
     ),
     bodySmall: TextStyle(
       fontFamily: "outfit",
@@ -53,7 +53,7 @@ final isDarkTheme = ThemeData(
     bodyMedium: TextStyle(
       fontFamily: "outfit",
       fontWeight: FontWeight.w400,
-      fontSize: 17,
+      fontSize: 13,
     ),
     bodySmall: TextStyle(
       fontFamily: "outfit",

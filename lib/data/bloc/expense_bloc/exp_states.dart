@@ -9,7 +9,7 @@ class ExpenseInitialState extends ExpStates {}
 class ExpenseLoadingState extends ExpStates {}
 
 class ExpenseLoadedState extends ExpStates {
- List<ExpenseModel> mData;
+  List<ExpenseModel> mData;
   ExpenseLoadedState({required this.mData});
 }
 
@@ -25,4 +25,11 @@ class GetAllCategoriesLoadedState extends ExpStates {
   List<CategoryDummyModel> allCategories;
 
   GetAllCategoriesLoadedState({required this.allCategories});
+}
+
+class AllMyCategoriesLoadedState extends ExpStates {
+  // List<CategoryModel> allCategories;
+  List<AllMyCategoriesLoadedState> allCategories;
+
+  AllMyCategoriesLoadedState({required this.allCategories});
 }
