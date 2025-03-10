@@ -48,7 +48,7 @@ final isDarkTheme = ThemeData(
     bodyLarge: TextStyle(
       fontFamily: "outfit",
       fontWeight: FontWeight.normal,
-      fontSize: 22,
+      fontSize: 17,
     ),
     bodyMedium: TextStyle(
       fontFamily: "outfit",

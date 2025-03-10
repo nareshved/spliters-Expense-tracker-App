@@ -241,10 +241,17 @@ class FirebaseHelper {
 
     return categories;
   }
+
+  Future<void> logOutUser() async {
+    await firebaseAuth.signOut();
+    log("user logout success in firebase");
+
+    var prefs = await SharedPreferences.getInstance();
+
+    prefs.setString(loginPrefsKey, "");
+    log("logout prefs clear in firebase helper");
+  }
 }
-
-
-
 
 // import 'dart:developer';
 // import 'package:cloud_firestore/cloud_firestore.dart';

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spliters/data/bloc/register/register_bloc.dart';
 import 'package:spliters/data/bloc/register/register_events.dart';
 import 'package:spliters/data/bloc/register/register_states.dart';
-import 'package:spliters/data/firebase/auth/firebase_helper.dart';
 import 'package:spliters/domain/models/user_model/user_model.dart';
 import 'package:spliters/repository/pages/login_page.dart';
 
@@ -51,20 +50,6 @@ class SignupPage extends StatelessWidget with AuthMixins {
 
                 BlocConsumer<RegisterBloc, RegisterStates>(
                   listener: (context, state) {
-                    if (state is RegisterLoadingState) {
-                      authBtn(
-                        btnName: "SignUp",
-                        onTap: () {},
-                        authCircle: SizedBox(
-                          width: 12,
-                          height: 12,
-                          child: CircularProgressIndicator.adaptive(
-                            backgroundColor: Colors.black45,
-                          ),
-                        ),
-                      );
-                    }
-
                     if (state is RegisterErrorState) {
                       ScaffoldMessenger.of(
                         context,
@@ -79,6 +64,19 @@ class SignupPage extends StatelessWidget with AuthMixins {
                     }
                   },
                   builder: (context, state) {
+                    // if (state is RegisterLoadingState) {
+                    //   authBtn(
+                    //     btnName: "SignUp",
+                    //     onTap: () {},
+                    //     authCircle: SizedBox(
+                    //       width: 12,
+                    //       height: 12,
+                    //       child: CircularProgressIndicator.adaptive(
+                    //         backgroundColor: Colors.black45,
+                    //       ),
+                    //     ),
+                    //   );
+                    // }
                     return authBtn(
                       btnName: "SignUp",
                       onTap: () async {
@@ -89,7 +87,7 @@ class SignupPage extends StatelessWidget with AuthMixins {
                             UserModel newUserRegister = UserModel(
                               userEmail:
                                   uEmailController.text.trim().toString(),
-                              userId: FirebaseHelper.firebaseCurrentUserUId,
+                              // userId: FirebaseHelper.firebaseCurrentUserUId,
                               userName: uNameController.text.trim().toString(),
                               userPassword:
                                   uPassController.text.trim().toString(),

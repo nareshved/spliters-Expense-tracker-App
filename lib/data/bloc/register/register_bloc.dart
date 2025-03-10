@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spliters/data/bloc/register/register_events.dart';
 import 'package:spliters/data/bloc/register/register_states.dart';
@@ -32,6 +34,19 @@ class RegisterBloc extends Bloc<RegisterEvents, RegisterStates> {
 
         emit(RegisterLoadedState());
       } catch (e) {
+        emit(RegisterErrorState(errorMsg: e.toString()));
+      }
+    });
+
+    on<LogOutUserEvent>((event, emit) async {
+      emit(RegisterLoadingState());
+
+      try {
+        await firebaseHelper.logOutUser();
+
+        emit(RegisterLoadedState());
+      } catch (e) {
+        log("error in bloc logout user");
         emit(RegisterErrorState(errorMsg: e.toString()));
       }
     });

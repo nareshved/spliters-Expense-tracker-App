@@ -5,7 +5,7 @@ class UserModel {
 
   UserModel({
     required this.userEmail,
-    required this.userId,
+    this.userId = "",
     required this.userName,
     required this.userPassword,
   });

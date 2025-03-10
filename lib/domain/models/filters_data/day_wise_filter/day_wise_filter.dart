@@ -5,6 +5,8 @@ import '../../date_wise_model/date_wise_exp.dart';
 void filterDayWiseExpenses({required List<ExpenseModel> allExpenses}) {
   var dateFormat = DateFormat.yMd();
 
+  DateWiseExpensesModel.dateWiseExp.clear();
+
   var listUniqueDates = [];
 
   for (ExpenseModel eachExp in allExpenses) {
